@@ -30,7 +30,7 @@ This project analyzes Amazon-style sales data to uncover business trends, custom
 	 - Checks for anomalies and prepares data for SQL analysis.
 
 4. **SQL Analysis**
-	 - Core business queries in `Basic_Business_Metrics.sql` and `Queries.sql`:
+	 - Core business queries in `Queries.sql`:
 		 - Revenue, order volume, average order value.
 		 - Product/category performance.
 		 - Customer segmentation and CLV.
@@ -72,22 +72,13 @@ This project analyzes Amazon-style sales data to uncover business trends, custom
 - `Schema.sql`: Database schema for all tables.
 - `Dataset/`: Raw CSV data for calendar, customers, products, sales, and stores.
 - `EDA.ipynb`: Data cleaning and initial exploration.
-- `Basic_Business_Metrics.sql` & `Queries.sql`: SQL queries and business logic.
+- `Queries.sql`: SQL queries and business logic.
 - `README.md`: Project documentation.
 
----
-
-## How to Use
-
-1. Review the schema and load data into your SQL environment.
-2. Clean and preprocess data using the notebook.
-3. Run SQL queries to generate metrics and insights.
-4. Use insights for business reporting and decision-making.
+## Project status : Ongoing
 
 ---
 
 ## Conclusion
-
-This project provides a robust framework for analyzing sales data, supporting business growth through data-driven insights and recommendations.
 
 ---
