@@ -79,6 +79,25 @@ The business generated **$25.5M in total revenue** across 100,000 orders during 
 
 ---
 
+### Store & Channel Analysis
+
+- **Airport stores punch above their weight.**
+Airport (UK) and Airport (Germany) are the top 2 revenue-generating combinations in the entire dataset. For a chocolate brand, this is a significant finding — airport retail captures high-intent, impulse buyers with above-average spend. This channel deserves prioritized stocking and premium product placement.
+
+- **AOV is suspiciously uniform across all store types and countries (~$25.3–$25.6).**
+Every single row shows nearly identical AOV regardless of whether it's an Airport in the UK or a Retail store in Canada. In real e-commerce this would never happen — it strongly signals synthetic data. You must note this in your README caveats. In an interview, if a recruiter asks "what surprised you in this data?", this is your honest answer.
+
+- **Online underperforms relative to its potential.**
+Online Canada ($1.78M) and Online USA ($1.54M) rank 3rd and 4th, but Online France, UK, and Australia trail significantly — sitting at roughly half the revenue of their Mall and Airport counterparts in the same countries. This suggests either lower online penetration in those markets or a distribution/marketing gap worth investigating.
+
+- **Retail is the weakest channel across all countries.**
+Every Retail entry sits in the bottom half of the table. Retail France ($1.02M), Retail USA ($1.02M), Retail Germany ($761K), and Retail Canada ($509K) are all outperformed by Mall and Airport equivalents in the same country. If this were real data, the recommendation would be to review the Retail store strategy — either reposition, consolidate, or convert underperforming Retail locations to Mall-format.
+
+- **UK and Germany are the strongest markets overall.**
+Airport UK ($2.27M) and Airport Germany ($2.04M) lead the entire dataset. Combined with Mall UK ($1.28M) and Retail Germany ($761K), both countries generate strong multi-channel revenue. These are the markets to protect and grow first.
+
+---
+
 ### Business Metrics
 
 - **Total Revenue: $25,486,129** — reflecting a healthy business scale over the two-year period.
