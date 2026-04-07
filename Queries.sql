@@ -253,3 +253,5 @@ FROM ( SELECT
 			  - Since monthly revenue is stable, the running total grows almost linearly. This makes forecasting future totals easier.
 			  - A steadily rising running total indicates no churn in overall revenue — customers keep buying, and sales are sustained.*/
 
+
+
