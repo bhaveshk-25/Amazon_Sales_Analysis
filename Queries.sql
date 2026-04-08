@@ -113,6 +113,7 @@ WHERE s.product_id IS NULL;
 -- Insights : - All products have recorded at least one sale, indicating a well-performing catalog with no completely inactive SKUs.
 
 
+
 -- ===========================
 -- Customer Analysis
 -- ===========================
@@ -206,6 +207,12 @@ FROM sales s
 JOIN customer_dim c ON s.customer_id = c.customer_id
 GROUP BY c.gender, c.loyalty_m
 ORDER BY revenue DESC;
+
+/*-- Insights : - Gender and loyalty membership show no meaningful revenue differentiation — all four segments generate between $6.3M and $6.5M
+                  with near-identical customer counts (~12,400–12,700). 
+				  This uniformity is consistent with the synthetic nature of the dataset and suggests the data was generated without segment-level revenue skew.
+				- Loyalty membership provides no observable revenue lift in this dataset. In a real business, loyalty members typically show 20–40% higher AOV or 
+				  purchase frequency — the absence of this pattern here is a notable limitation for drawing actionable conclusions from the loyalty dimension */ 
 
 
 -- 6. Age group segmentation
@@ -309,3 +316,40 @@ ORDER BY revenue DESC;
 			    Combined with Mall UK ($1.28M) and Retail Germany ($761K), both countries generate strong multi-channel revenue. 
 				These are the markets to protect and grow first.*/	
 
+
+WITH customer_stats AS (
+    SELECT
+        s.customer_id,
+        COUNT(DISTINCT s.order_id)             AS frequency,
+        ROUND(SUM(s.revenue), 2)               AS monetary,
+        DATE '2025-01-01' - MAX(s.order_date)  AS recency_days
+    FROM sales s
+    GROUP BY s.customer_id
+),
+segmented AS (
+    SELECT
+        customer_id,
+        frequency,
+        monetary,
+        recency_days,
+        CASE
+            WHEN recency_days <= 90
+             AND frequency >= 5
+             AND monetary >= 500  THEN 'Champions'
+            WHEN recency_days <= 180
+             AND frequency >= 3   THEN 'Loyal'
+            WHEN recency_days > 180 THEN 'Needs attention'
+            ELSE 'Regular'
+        END AS segment
+    FROM customer_stats
+)
+SELECT
+    segment,
+    COUNT(*)                           AS customer_count,
+    ROUND(AVG(monetary), 2)            AS avg_revenue,
+    ROUND(AVG(frequency), 1)           AS avg_orders,
+    ROUND(AVG(recency_days), 0)        AS avg_days_since_order,
+    ROUND(SUM(monetary))               AS segment_revenue
+FROM segmented
+GROUP BY segment
+ORDER BY segment_revenue DESC;
