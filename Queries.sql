@@ -231,6 +231,12 @@ JOIN customer_dim c ON s.customer_id = c.customer_id
 GROUP BY age_group
 ORDER BY revenue DESC;
 
+/*-- Insights : - The 50+ age group is the dominant revenue segment at $9.6M, contributing approximately 38% of total revenue, followed by 36–50 at $7.2M (28%). 
+                  Together, customers aged 36 and above account for ~66% of total revenue — indicating the core buyer is middle-aged to older.
+				- Younger customers (18–25) are the smallest revenue segment at $3.9M despite being a presumably large demographic. 
+				  This points to either lower purchase frequency, lower basket sizes, or underpenetration in this segment — all of which 
+				  represent a growth opportunity through targeted campaigns.  
+				- AOV is identical across all age groups ($25.48–25.49), which is a data artifact. In real e-commerce, older customers with higher disposable income typically show meaningfully higher AOV.*/  
 
 
 -- ===========================
@@ -316,40 +322,3 @@ ORDER BY revenue DESC;
 			    Combined with Mall UK ($1.28M) and Retail Germany ($761K), both countries generate strong multi-channel revenue. 
 				These are the markets to protect and grow first.*/	
 
-
-WITH customer_stats AS (
-    SELECT
-        s.customer_id,
-        COUNT(DISTINCT s.order_id)             AS frequency,
-        ROUND(SUM(s.revenue), 2)               AS monetary,
-        DATE '2025-01-01' - MAX(s.order_date)  AS recency_days
-    FROM sales s
-    GROUP BY s.customer_id
-),
-segmented AS (
-    SELECT
-        customer_id,
-        frequency,
-        monetary,
-        recency_days,
-        CASE
-            WHEN recency_days <= 90
-             AND frequency >= 5
-             AND monetary >= 500  THEN 'Champions'
-            WHEN recency_days <= 180
-             AND frequency >= 3   THEN 'Loyal'
-            WHEN recency_days > 180 THEN 'Needs attention'
-            ELSE 'Regular'
-        END AS segment
-    FROM customer_stats
-)
-SELECT
-    segment,
-    COUNT(*)                           AS customer_count,
-    ROUND(AVG(monetary), 2)            AS avg_revenue,
-    ROUND(AVG(frequency), 1)           AS avg_orders,
-    ROUND(AVG(recency_days), 0)        AS avg_days_since_order,
-    ROUND(SUM(monetary))               AS segment_revenue
-FROM segmented
-GROUP BY segment
-ORDER BY segment_revenue DESC;
