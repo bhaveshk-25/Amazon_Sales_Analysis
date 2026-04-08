@@ -67,6 +67,10 @@ The business generated **$25.5M in total revenue** across 100,000 orders during 
 
 - **Customers inactive for 3+ months** (last order before October 2024) represent a churn risk pool. These individuals can be targeted with re-engagement campaigns such as personalized discounts or product recommendations.
 
+- **Gender and loyalty membership show no meaningful revenue differentiation** — all four segments generate between $6.3M and $6.5M with near-identical customer counts (~12,400–12,700). This uniformity is consistent with the synthetic nature of the dataset and suggests the data was generated without segment-level revenue skew.
+
+- **Loyalty membership provides no observable revenue lift in this dataset.** In a real business, loyalty members typically show 20–40% higher AOV or purchase frequency — the absence of this pattern here is a notable limitation for drawing actionable conclusions from the loyalty dimension.
+
 ---
 
 ### Time Series Trends
@@ -139,3 +143,4 @@ Throughout the analysis, multiple assumptions were made to manage challenges wit
 - Revenue figures are assumed to already account for discounts applied at the transaction level. The `revenue` column is used as the primary metric throughout.
 - The 100,000 order count is a round number; it is unclear whether this represents the complete transaction history or a sampled extract. Results should be interpreted accordingly.
 - AOV is nearly identical across all store types and countries ($25.3–$25.6), which is statistically improbable in real retail data and further confirms the synthetic nature of this dataset.
+- Gender and loyalty membership show near-zero revenue variance across segments, which is inconsistent with real customer behavior and reflects the synthetic data generation process.
